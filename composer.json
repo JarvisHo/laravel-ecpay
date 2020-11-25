@@ -1,6 +1,6 @@
 {
-    "name": "tsaiyihua/laravel-ecpay",
-    "description": "ecpay library for laravel",
+    "name": "jarvisho/laravel-ecpay",
+    "description": "ecpay library for laravel from tsaiyihua",
     "type": "library",
     "keywords": ["payment", "ecpay", "laravel"],
     "require": {
