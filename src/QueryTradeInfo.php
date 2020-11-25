@@ -15,7 +15,7 @@ class QueryTradeInfo
     protected $hashIv;
     protected $encryptType='sha256';
 
-    public function __construct()
+    public function __construct($merchantId, $hashKey, $hashIv)
     {
         if (config('app.env') == 'production') {
             $this->apiUrl = 'https://payment.ecpay.com.tw/Cashier/QueryTradeInfo/V5';
@@ -24,9 +24,9 @@ class QueryTradeInfo
         }
         $this->postData = new Collection();
 
-        $this->merchantId = config('ecpay.MerchantId');
-        $this->hashKey = config('ecpay.HashKey');
-        $this->hashIv = config('ecpay.HashIV');
+        $this->merchantId = $merchantId;
+        $this->hashKey = $hashKey;
+        $this->hashIv = $hashIv;
     }
 
     public function getData($orderId)

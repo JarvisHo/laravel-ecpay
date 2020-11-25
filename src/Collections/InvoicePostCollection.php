@@ -18,10 +18,10 @@ class InvoicePostCollection extends Collection
     public $attributes;
     public $notifyUrl;
 
-    public function __construct()
+    public function __construct($merchantId)
     {
         parent::__construct();
-        $this->merchantId = config('ecpay.MerchantId');
+        $this->merchantId = $merchantId;
         $this->notifyUrl = route('ecpay.notify');
     }
 

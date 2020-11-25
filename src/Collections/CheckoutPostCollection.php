@@ -16,10 +16,10 @@ class CheckoutPostCollection extends Collection
     public $notifyUrl;
     public $returnUrl;
 
-    public function __construct()
+    public function __construct($merchantId)
     {
         parent::__construct();
-        $this->merchantId = config('ecpay.MerchantId');
+        $this->merchantId = $merchantId;
         $this->notifyUrl = route('ecpay.notify');
         $this->returnUrl = route('ecpay.return');
     }

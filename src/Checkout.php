@@ -27,18 +27,18 @@ class Checkout
 
     protected $itemValidation;
 
-    public function __construct(CheckoutPostCollection $checkoutPostCollection)
+    public function __construct($merchantId, $hashKey, $hashIv)
     {
+        $checkoutPostCollection = new CheckoutPostCollection($merchantId);
         if (config('app.env') == 'production') {
             $this->apiUrl = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5';
         } else {
             $this->apiUrl = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
         }
         $this->postData = $checkoutPostCollection;
-
-        $this->merchantId = config('ecpay.MerchantId');
-        $this->hashKey = config('ecpay.HashKey');
-        $this->hashIv = config('ecpay.HashIV');
+        $this->merchantId = $merchantId;
+        $this->hashKey = $hashKey;
+        $this->hashIv = $hashIv;
     }
 
     /**
@@ -102,7 +102,7 @@ class Checkout
      */
     public function withInvoice($invData)
     {
-        $invPostData = new InvoicePostCollection;
+        $invPostData = new InvoicePostCollection($this->merchantId);
         $invPostData->setData($invData)->setPostDataForCheckout();
         $this->postData = collect(array_merge($this->postData->all(), $invPostData->all()));
         return $this;

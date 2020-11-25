@@ -17,7 +17,7 @@ class QueryInvoice
 
     protected $client;
 
-    public function __construct()
+    public function __construct($merchantId, $hashKey, $hashIv)
     {
         if (config('app.env') == 'production') {
             $this->apiUrl = 'https://einvoice.ecpay.com.tw/Query/Issue';
@@ -26,9 +26,9 @@ class QueryInvoice
         }
         $this->postData = new Collection();
 
-        $this->merchantId = config('ecpay.MerchantId');
-        $this->hashKey = config('ecpay.InvoiceHashKey');
-        $this->hashIv = config('ecpay.InvoiceHashIV');
+        $this->merchantId = $merchantId;
+        $this->hashKey = $hashKey;
+        $this->hashIv = $hashIv;
     }
 
     public function getData($orderId)

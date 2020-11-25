@@ -31,7 +31,7 @@ class Invoice
 
     public $ecpayInvoice;
 
-    public function __construct(InvoicePostCollection $postData, ECPayInvoice $ecpayInvoice)
+    public function __construct(InvoicePostCollection $postData, ECPayInvoice $ecpayInvoice, $merchantId, $hashKey, $hashIv)
     {
         if (config('app.env') == 'production') {
             $this->apiUrl = 'https://einvoice.ecpay.com.tw/Invoice/Issue';
@@ -49,9 +49,9 @@ class Invoice
         $this->ecpayInvoice = $ecpayInvoice;
         $this->ecpayInvoice->Invoice_Method = 'INVOICE' ;
         $this->ecpayInvoice->Invoice_Url = $this->apiUrl;
-        $this->ecpayInvoice->MerchantID = config('ecpay.MerchantId');
-        $this->ecpayInvoice->HashKey = config('ecpay.InvoiceHashKey');
-        $this->ecpayInvoice->HashIV = config('ecpay.InvoiceHashIV');
+        $this->ecpayInvoice->MerchantID = $merchantId;
+        $this->ecpayInvoice->HashKey = $hashKey;
+        $this->ecpayInvoice->HashIV = $hashIv;
     }
 
     /**
